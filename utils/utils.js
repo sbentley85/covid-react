@@ -2,10 +2,11 @@
 const fs = require("fs");
 const fetch = require("node-fetch");
 
+// types of regions used by gov.uk api
 const regionString = "region";
 const authorityString = "ltla";
 
-// Get areas function
+// Get areas function gets all area options for a given type
 
 const getAreas = async (regionType) => {
 	const resultsArray = [];
@@ -46,6 +47,7 @@ const writeArray = (name, array) => {
 	});
 };
 
+// async function calls
 (async () => {
 	const authoritiesArray = await getAreas(authorityString);
 	const regionsArray = await getAreas(regionString);
