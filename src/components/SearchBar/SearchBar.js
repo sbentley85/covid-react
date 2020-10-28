@@ -1,7 +1,8 @@
 // imports
-import React from "react";
-import FormControl from "@material-ui/core/FormControl";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+
+import Grid from "@material-ui/core/Grid";
 
 // Component imports
 import SearchButton from "./SearchButton";
@@ -13,16 +14,31 @@ const useStyles = makeStyles((theme) => ({
 		margin: theme.spacing(1),
 		minWidth: 120,
 	},
+	searchRow: {
+		display: "flex",
+		justifyContent: "center",
+	},
 }));
 
 const SearchBar = () => {
 	const classes = useStyles();
+	const [option, setOption] = React.useState("country");
+
+	const handleChange = (event) => {
+		console.log(event.target.value);
+		setOption(event.target.value);
+	};
+
 	return (
-		<FormControl className={classes.formControl}>
-			<SearchOption />
-			<SearchInput />
-			<SearchButton />
-		</FormControl>
+		<Grid container>
+			<Grid item xs={12} className={classes.searchRow}>
+				<SearchOption option={option} handleChange={handleChange} />
+				<SearchInput />
+			</Grid>
+			<Grid item xs={12} className={classes.searchRow}>
+				<SearchButton />
+			</Grid>
+		</Grid>
 	);
 };
 
