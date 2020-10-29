@@ -28,8 +28,8 @@ const SearchOption = (props) => {
 			<Select
 				labelId="option-input-label"
 				id="option-input"
-				value={props.option}
-				onChange={props.handleChange}
+				value={props.searchOption}
+				onChange={props.searchOptionChange}
 				className={classes.searchOption}
 			>
 				<MenuItem value={"country"}>Country</MenuItem>
