@@ -8,4 +8,5 @@ export const regions = [
 	"South West",
 	"West Midlands",
 	"Yorkshire and The Humber",
+	"",
 ];

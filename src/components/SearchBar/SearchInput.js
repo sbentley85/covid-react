@@ -1,6 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const useStyles = makeStyles((theme) => ({
 	textField: {
@@ -9,14 +10,30 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SearchInput = () => {
+const SearchInput = (props) => {
 	const classes = useStyles();
-	return (
+	return props.optionList.length === 0 ? (
+		<TextField
+			label="Location"
+			onChange={props.postcodeChange}
+			className={classes.textField}
+			id="search"
+		/>
+	) : (
 		<>
-			<TextField
-				className={classes.textField}
+			<Autocomplete
 				id="search"
-				label="Location"
+				options={props.optionList}
+				getOptionLabel={(option) => option}
+				onChange={props.handleChange}
+				value={props.searchTerm}
+				renderInput={(params) => (
+					<TextField
+						{...params}
+						label="Location"
+						className={classes.textField}
+					/>
+				)}
 			/>
 		</>
 	);

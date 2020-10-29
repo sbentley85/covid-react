@@ -27,7 +27,27 @@ const getAreas = async (regionType) => {
 			});
 			return resultsArray;
 		}
-		cl;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// Get countries function
+
+const getCountries = async () => {
+	const url = "https://api.covid19api.com/countries";
+	const resultsArray = [];
+
+	try {
+		const response = await fetch(url, {});
+		if (response.ok) {
+			const jsonResponse = await response.json();
+			jsonResponse.forEach((item) => {
+				resultsArray.push(item.Country);
+			});
+			console.log(resultsArray);
+			return resultsArray.sort();
+		}
 	} catch (error) {
 		console.log(error);
 	}
@@ -49,9 +69,10 @@ const writeArray = (name, array) => {
 
 // async function calls
 (async () => {
-	const authoritiesArray = await getAreas(authorityString);
-	const regionsArray = await getAreas(regionString);
-
-	writeArray("regions", regionsArray);
-	writeArray("authorities", authoritiesArray);
+	// const authoritiesArray = await getAreas(authorityString);
+	// const regionsArray = await getAreas(regionString);
+	const countriesArray = await getCountries();
+	// writeArray("regions", regionsArray);
+	// writeArray("authorities", authoritiesArray);
+	writeArray("countries", countriesArray);
 })();

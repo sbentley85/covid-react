@@ -382,4 +382,5 @@ export const authorities = [
 	"Wyre",
 	"Wyre Forest",
 	"York",
+	"",
 ];
