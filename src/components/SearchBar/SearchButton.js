@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SearchButton = () => {
+const SearchButton = (props) => {
 	const classes = useStyles();
 	return (
 		<div>
@@ -16,6 +16,7 @@ const SearchButton = () => {
 				className={classes.searchButton}
 				variant="contained"
 				color="primary"
+				onClick={props.handleSearch}
 			>
 				Search
 			</Button>

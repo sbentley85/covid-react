@@ -1,7 +1,6 @@
 // imports
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
 import Grid from "@material-ui/core/Grid";
 
 // Component imports
@@ -38,7 +37,7 @@ const SearchBar = (props) => {
 				/>
 			</Grid>
 			<Grid item xs={12} className={classes.searchRow}>
-				<SearchButton />
+				<SearchButton handleSearch={props.handleSearch} />
 			</Grid>
 		</Grid>
 	);

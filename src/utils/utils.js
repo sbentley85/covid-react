@@ -67,12 +67,26 @@ const writeArray = (name, array) => {
 	});
 };
 
-// async function calls
-(async () => {
-	// const authoritiesArray = await getAreas(authorityString);
-	// const regionsArray = await getAreas(regionString);
-	const countriesArray = await getCountries();
-	// writeArray("regions", regionsArray);
-	// writeArray("authorities", authoritiesArray);
-	writeArray("countries", countriesArray);
-})();
+// async function calls to create options files
+// (async () => {
+// 	// const authoritiesArray = await getAreas(authorityString);
+// 	// const regionsArray = await getAreas(regionString);
+// 	const countriesArray = await getCountries();
+// 	// writeArray("regions", regionsArray);
+// 	// writeArray("authorities", authoritiesArray);
+// 	writeArray("countries", countriesArray);
+// })();
+
+// converts number to string with commas for display
+export const addCommas = (number) => {
+	let nStr = number.toString();
+	nStr += "";
+	let x = nStr.split(".");
+	let x1 = x[0];
+	let x2 = x.length > 1 ? "." + x[1] : "";
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, "$1" + "," + "$2");
+	}
+	return x1 + x2;
+};
