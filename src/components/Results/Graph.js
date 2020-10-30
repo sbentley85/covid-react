@@ -1,41 +1,101 @@
 import React from "react";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 
 import {
-	XYPlot,
+	LineChart,
+	Line,
 	XAxis,
 	YAxis,
-	HorizontalGridLines,
-	VerticalGridLines,
-	LineSeries,
-} from "index";
+	CartesianGrid,
+	Tooltip,
+	Legend,
+	ResponsiveContainer,
+} from "recharts";
 
-const MSEC_DAILY = 86400000;
+const useStyles = makeStyles({
+	graphContainer: {
+		display: "flex",
+		justifyContent: "center",
+		paddingBottom: "5rem",
+	},
+});
 
-export default function Graph(props) {
-	const timestamp = new Date("September 9 2017").getTime();
+const CustomisedAxisTick = (props) => {
+	const { x, y, stroke, payload } = props;
+
 	return (
-		<XYPlot xType="time" width={300} height={300}>
-			<HorizontalGridLines />
-			<VerticalGridLines />
-			<XAxis title="X Axis" />
-			<YAxis title="Y Axis" />
-			<LineSeries
-				data={[
-					{ x: timestamp + MSEC_DAILY, y: 3 },
-					{ x: timestamp + MSEC_DAILY * 2, y: 5 },
-					{ x: timestamp + MSEC_DAILY * 3, y: 15 },
-					{ x: timestamp + MSEC_DAILY * 4, y: 12 },
-				]}
-			/>
-			<LineSeries data={null} />
-			<LineSeries
-				data={[
-					{ x: timestamp + MSEC_DAILY, y: 10 },
-					{ x: timestamp + MSEC_DAILY * 2, y: 4 },
-					{ x: timestamp + MSEC_DAILY * 3, y: 2 },
-					{ x: timestamp + MSEC_DAILY * 4, y: 15 },
-				]}
-			/>
-		</XYPlot>
+		<g transform={`translate(${x},${y})`}>
+			<text
+				x={0}
+				y={0}
+				dy={16}
+				textAnchor="end"
+				fill="#666"
+				transform="rotate(-35)"
+			>
+				{payload.value}
+			</text>
+		</g>
 	);
-}
+};
+
+const Graph = (props) => {
+	const classes = useStyles();
+
+	const graphData = props.data
+		? props.data.map((country) => {
+				return {
+					Active: country.Active,
+					Confirmed: country.Confirmed,
+					Deaths: country.Deaths,
+					Date: country.Date.split("T")[0],
+				};
+		  })
+		: null;
+	return props.data ? (
+		<Grid item xs={12} className={classes.graphContainer}>
+			<ResponsiveContainer width="80%" height={400}>
+				<LineChart
+					width={500}
+					height={300}
+					data={graphData}
+					margin={{
+						top: 20,
+						right: 20,
+						left: 20,
+						bottom: 45,
+					}}
+				>
+					<CartesianGrid strokeDasharray="3 3" />
+					<XAxis
+						dataKey="Date"
+						tickCount={5}
+						interval={"preserveStartEnd"}
+						tick={<CustomisedAxisTick />}
+					/>
+					<YAxis />
+					<Tooltip />
+					<Legend verticalAlign="top" />
+					<Line
+						type="monotone"
+						dataKey="Confirmed"
+						stroke="#8884d8"
+						activeDot={{ r: 8 }}
+						dot={false}
+					/>
+					<Line
+						type="monotone"
+						dot={false}
+						dataKey="Active"
+						stroke="#82ca9d"
+					/>
+				</LineChart>
+			</ResponsiveContainer>
+		</Grid>
+	) : (
+		<></>
+	);
+};
+
+export default Graph;

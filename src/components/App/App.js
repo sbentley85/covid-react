@@ -1,16 +1,27 @@
 import "./App.css";
 import React, { useState } from "react";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 
 // Component imports
 import SearchBar from "../SearchBar/SearchBar";
-import WorldData from "../Results/WorldData";
+import Summary from "../Results/Summary";
+import Graph from "../Results/Graph";
 
 // import search option arrays from utils
 import { authorities } from "../../utils/authorities";
 import { regions } from "../../utils/regions";
 import { countries } from "../../utils/countries";
 
+const useStyles = makeStyles({
+	appContainer: {
+		display: "flex",
+		justifyContent: "center",
+	},
+});
+
 function App() {
+	const classes = useStyles();
 	// state variables
 	const [searchOption, setSearchOption] = useState("country");
 	const [searchTerm, setSearchTerm] = useState("");
@@ -28,6 +39,7 @@ function App() {
 	const searchOptionChange = (event) => {
 		const option = event.target.value;
 		setSearchTerm("");
+		setData(null);
 		setSearchOption(option);
 		if (option === "country") setOptionList(countries);
 		if (option === "region") setOptionList(regions);
@@ -75,16 +87,19 @@ function App() {
 
 	return (
 		<div className="App">
-			<SearchBar
-				searchOption={searchOption}
-				searchOptionChange={searchOptionChange}
-				searchTerm={searchTerm}
-				termChange={termChange}
-				postcodeChange={postcodeChange}
-				optionList={optionList}
-				handleSearch={handleSearch}
-			/>
-			<WorldData country={searchTerm} />
+			<Grid container className={classes.appContainer}>
+				<SearchBar
+					searchOption={searchOption}
+					searchOptionChange={searchOptionChange}
+					searchTerm={searchTerm}
+					termChange={termChange}
+					postcodeChange={postcodeChange}
+					optionList={optionList}
+					handleSearch={handleSearch}
+				/>
+				<Summary country={searchTerm} />
+				<Graph data={data} />
+			</Grid>
 		</div>
 	);
 }

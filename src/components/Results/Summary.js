@@ -1,33 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { addCommas } from "../../utils/utils";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
 // component imports
 import SummaryCard from "./SummaryCard";
 
 const useStyles = makeStyles({
-	root: {
-		minWidth: 275,
-	},
-
-	title: {
-		fontSize: 14,
-	},
 	cardRow: {
 		display: "flex",
 		justifyContent: "center",
 	},
-	detailsRow: {
-		display: "flex",
-		justifyContent: "space-between",
-	},
 });
 
-const WorldData = (props) => {
+const Summary = (props) => {
 	const [worldData, setWorldData] = useState(null);
 	const classes = useStyles();
 
@@ -71,24 +56,22 @@ const WorldData = (props) => {
 		}
 	});
 	return worldData ? (
-		<Grid container className={classes.cardRow}>
-			<Grid item xs={8} m={6} className={classes.cardRow}>
-				<SummaryCard data={worldData.Global} country={"Worldwide"} />
+		<Grid item xs={8} m={6} className={classes.cardRow}>
+			<SummaryCard data={worldData.Global} country={"Worldwide"} />
 
-				<SummaryCard
-					data={
-						worldData.Countries.filter((item) => {
-							return item.Country === props.country;
-						})[0]
-					}
-					// data={worldData.Global}
-					country={props.country}
-				/>
-			</Grid>
+			<SummaryCard
+				data={
+					worldData.Countries.filter((item) => {
+						return item.Country === props.country;
+					})[0]
+				}
+				// data={worldData.Global}
+				country={props.country}
+			/>
 		</Grid>
 	) : (
 		<></>
 	);
 };
 
-export default WorldData;
+export default Summary;
