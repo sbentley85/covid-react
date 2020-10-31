@@ -101,7 +101,7 @@ export const formatRegionSummaryData = (data) => {
 };
 
 export const formatRegionData = (data) => {
-	const formattedData = data.map((item) => {
+	const formattedData = data.slice(1).map((item) => {
 		return {
 			Date: item.date,
 			Confirmed: item.cumCases || 0,
@@ -110,13 +110,8 @@ export const formatRegionData = (data) => {
 			NewDeaths: item.newDeaths || 0,
 		};
 	});
-	console.log(formattedData);
 
-	for (let i = 1; i < formattedData.length; i++) {
-		formattedData[i].Confirmed =
-			formattedData[i - 1].Confirmed - formattedData[i - 1].NewConfirmed;
-	}
+	console.log(formattedData);
 	const reversedData = formattedData.reverse();
-	console.log(reversedData);
 	return reversedData;
 };

@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { formatRegionData } from "../../utils/utils";
@@ -77,7 +77,7 @@ function App() {
 
 	const regionSearch = async () => {
 		console.log("searching for a region");
-		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=region;areaName=${searchTerm}&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesByPublishDate","cumCases":"cumCasesByPublishDate","newDeaths":"newDeaths28DaysByPublishDate","cumDeaths":"cumDeaths28DaysByPublishDate"}`;
+		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=region;areaName=${searchTerm}&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByPublishDate","cumDeaths":"cumDeaths28DaysByPublishDate"}`;
 		const requestOptions = {
 			method: "GET",
 			redirect: "follow",
@@ -96,13 +96,62 @@ function App() {
 		}
 	};
 
-	const authoritySearch = async () => {
-		console.log("searching for an authority");
+	const authoritySearch = async (authority) => {
+		console.log("searching for a region");
+
+		const authorityToSearch = authority ? authority : searchTerm;
+		console.log(authorityToSearch);
+		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=ltla;areaName=${authorityToSearch}&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByPublishDate","cumDeaths":"cumDeaths28DaysByPublishDate"}`;
+		const requestOptions = {
+			method: "GET",
+			redirect: "follow",
+		};
+		try {
+			const response = await fetch(url, requestOptions);
+			if (response.ok) {
+				const jsonResponse = await response.json();
+				const formattedData = formatRegionData(jsonResponse.data);
+				setData(formattedData);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const postcodeLookup = async () => {
+		const url = `https://api.coronavirus.data.gov.uk/code?category=postcode&search=${searchTerm}`;
+		const requestOptions = {
+			method: "GET",
+			redirect: "follow",
+		};
+		try {
+			const response = await fetch(url, requestOptions);
+			if (response.ok) {
+				const jsonResponse = await response.json();
+
+				console.log(jsonResponse);
+				return await jsonResponse.ltlaName;
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const postcodeSearch = async () => {
 		console.log("searching for a postcode");
+		const authority = await postcodeLookup();
+		console.log("authority passed by postcode");
+		console.log(authority);
+		setSearchTerm(authority);
+		authoritySearch(authority);
 	};
+
+	// useEffect(() => {
+	// 	console.log("apps use effect");
+	// 	if (searchOption === "postcode" && !data && searchTerm != "") {
+	// 		authoritySearch();
+	// 	}
+	// });
 
 	return (
 		<div className="App">

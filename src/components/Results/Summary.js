@@ -17,7 +17,6 @@ const Summary = (props) => {
 	const classes = useStyles();
 
 	useEffect(() => {
-		console.log("use effect running");
 		if (!worldData) {
 			if (sessionStorage.getItem("worldData")) {
 				const data = JSON.parse(sessionStorage.getItem("worldData"));
