@@ -90,3 +90,33 @@ export const addCommas = (number) => {
 	}
 	return x1 + x2;
 };
+
+export const formatRegionSummaryData = (data) => {
+	return {
+		TotalConfirmed: "",
+		NewConfirmed: "",
+		TotalDeaths: "",
+		NewDeaths: "",
+	};
+};
+
+export const formatRegionData = (data) => {
+	const formattedData = data.map((item) => {
+		return {
+			Date: item.date,
+			Confirmed: item.cumCases || 0,
+			NewConfirmed: item.dailyCases || 0,
+			Deaths: item.cumDeaths || 0,
+			NewDeaths: item.newDeaths || 0,
+		};
+	});
+	console.log(formattedData);
+
+	for (let i = 1; i < formattedData.length; i++) {
+		formattedData[i].Confirmed =
+			formattedData[i - 1].Confirmed - formattedData[i - 1].NewConfirmed;
+	}
+	const reversedData = formattedData.reverse();
+	console.log(reversedData);
+	return reversedData;
+};

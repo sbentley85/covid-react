@@ -57,17 +57,33 @@ const Summary = (props) => {
 	});
 	return worldData ? (
 		<Grid item xs={8} m={6} className={classes.cardRow}>
-			<SummaryCard data={worldData.Global} country={"Worldwide"} />
-
-			<SummaryCard
-				data={
-					worldData.Countries.filter((item) => {
-						return item.Country === props.country;
-					})[0]
-				}
-				// data={worldData.Global}
-				country={props.country}
-			/>
+			{props.searchOption === "country" ? (
+				<SummaryCard data={worldData.Global} searchTerm={"Worldwide"} />
+			) : (
+				<SummaryCard
+					data={
+						worldData.Countries.filter((item) => {
+							return item.Country === "United Kingdom";
+						})[0]
+					}
+					searchTerm={"United Kingdom"}
+				/>
+			)}
+			{props.searchOption === "country" ? (
+				<SummaryCard
+					data={
+						worldData.Countries.filter((item) => {
+							return item.Country === props.searchTerm;
+						})[0]
+					}
+					searchTerm={props.searchTerm}
+				/>
+			) : (
+				<SummaryCard
+					data={props.regionData}
+					searchTerm={props.searchTerm}
+				/>
+			)}
 		</Grid>
 	) : (
 		<></>

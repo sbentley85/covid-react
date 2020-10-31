@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 const SummaryCard = (props) => {
 	const classes = useStyles();
 
-	return props.country != "" && props.country != null && props.data ? (
+	return props.searchTerm != "" && props.searchTerm != null && props.data ? (
 		<Card className={classes.root}>
 			<CardContent>
 				<Typography
@@ -36,14 +36,16 @@ const SummaryCard = (props) => {
 					color="textSecondary"
 					gutterBottom
 				>
-					{props.country} data
+					{props.searchTerm} data
 				</Typography>
 				<div className={classes.detailsRow}>
 					<Typography variant="body2" component="span">
 						Total Confirmed Cases:
 					</Typography>
 					<Typography variant="body2" component="span">
-						{addCommas(props.data.TotalConfirmed)}
+						{addCommas(
+							props.data.TotalConfirmed || props.data.Confirmed
+						)}
 					</Typography>
 				</div>
 				<div className={classes.detailsRow}>
@@ -59,7 +61,7 @@ const SummaryCard = (props) => {
 						Total Deaths:
 					</Typography>
 					<Typography variant="body2" component="span">
-						{addCommas(props.data.TotalDeaths)}
+						{addCommas(props.data.TotalDeaths || props.data.Deaths)}
 					</Typography>
 				</div>
 				<div className={classes.detailsRow}>
@@ -68,22 +70,6 @@ const SummaryCard = (props) => {
 					</Typography>
 					<Typography variant="body2" component="span">
 						{addCommas(props.data.NewDeaths)}
-					</Typography>
-				</div>
-				<div className={classes.detailsRow}>
-					<Typography variant="body2" component="span">
-						Total Recovered Cases:
-					</Typography>
-					<Typography variant="body2" component="span">
-						{addCommas(props.data.TotalRecovered)}
-					</Typography>
-				</div>
-				<div className={classes.detailsRow}>
-					<Typography variant="body2" component="span">
-						New Recovered Cases:
-					</Typography>
-					<Typography variant="body2" component="span">
-						{addCommas(props.data.NewRecovered)}
 					</Typography>
 				</div>
 			</CardContent>

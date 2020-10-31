@@ -44,15 +44,16 @@ const Graph = (props) => {
 	const classes = useStyles();
 
 	const graphData = props.data
-		? props.data.map((country) => {
+		? props.data.map((date) => {
 				return {
-					Active: country.Active,
-					Confirmed: country.Confirmed,
-					Deaths: country.Deaths,
-					Date: country.Date.split("T")[0],
+					Active: date.Active,
+					Confirmed: date.Confirmed,
+					Deaths: date.Deaths,
+					Date: date.Date.split("T")[0],
 				};
 		  })
 		: null;
+
 	return props.data ? (
 		<Grid item xs={12} className={classes.graphContainer}>
 			<ResponsiveContainer width="80%" height={400}>
@@ -87,7 +88,7 @@ const Graph = (props) => {
 					<Line
 						type="monotone"
 						dot={false}
-						dataKey="Active"
+						dataKey="Deaths"
 						stroke="#82ca9d"
 					/>
 				</LineChart>

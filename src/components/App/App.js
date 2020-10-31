@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import { formatRegionData } from "../../utils/utils";
 
 // Component imports
 import SearchBar from "../SearchBar/SearchBar";
@@ -30,6 +31,7 @@ function App() {
 
 	const termChange = (event, value) => {
 		setSearchTerm(value);
+		setData(null);
 	};
 
 	const postcodeChange = (event) => {
@@ -75,6 +77,23 @@ function App() {
 
 	const regionSearch = async () => {
 		console.log("searching for a region");
+		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=region;areaName=${searchTerm}&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesByPublishDate","cumCases":"cumCasesByPublishDate","newDeaths":"newDeaths28DaysByPublishDate","cumDeaths":"cumDeaths28DaysByPublishDate"}`;
+		const requestOptions = {
+			method: "GET",
+			redirect: "follow",
+		};
+		try {
+			const response = await fetch(url, requestOptions);
+			if (response.ok) {
+				const jsonResponse = await response.json();
+
+				const formattedData = formatRegionData(jsonResponse.data);
+
+				setData(formattedData);
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const authoritySearch = async () => {
@@ -97,7 +116,11 @@ function App() {
 					optionList={optionList}
 					handleSearch={handleSearch}
 				/>
-				<Summary country={searchTerm} />
+				<Summary
+					searchOption={searchOption}
+					searchTerm={searchTerm}
+					regionData={data ? data[data.length - 1] : null}
+				/>
 				<Graph data={data} />
 			</Grid>
 		</div>
