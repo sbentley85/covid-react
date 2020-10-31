@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import GraphOption from "./GraphOption";
 
 import {
 	LineChart,
@@ -18,6 +19,10 @@ const useStyles = makeStyles({
 		display: "flex",
 		justifyContent: "center",
 		paddingBottom: "5rem",
+	},
+	optionContainer: {
+		display: "flex",
+		justifyContent: "center",
 	},
 });
 
@@ -42,6 +47,7 @@ const CustomisedAxisTick = (props) => {
 
 const Graph = (props) => {
 	const classes = useStyles();
+	const [graphOption, setGraphOption] = useState("Confirmed");
 
 	const graphData = props.data
 		? props.data.map((date) => {
@@ -54,46 +60,53 @@ const Graph = (props) => {
 		  })
 		: null;
 
+	const graphOptionChange = (event) => {
+		setGraphOption(event.target.value);
+	};
+
 	return props.data ? (
-		<Grid item xs={12} className={classes.graphContainer}>
-			<ResponsiveContainer width="80%" height={400}>
-				<LineChart
-					width={500}
-					height={300}
-					data={graphData}
-					margin={{
-						top: 20,
-						right: 20,
-						left: 20,
-						bottom: 45,
-					}}
-				>
-					<CartesianGrid strokeDasharray="3 3" />
-					<XAxis
-						dataKey="Date"
-						tickCount={5}
-						interval={"preserveStartEnd"}
-						tick={<CustomisedAxisTick />}
-					/>
-					<YAxis />
-					<Tooltip />
-					<Legend verticalAlign="top" />
-					<Line
-						type="monotone"
-						dataKey="Confirmed"
-						stroke="#8884d8"
-						activeDot={{ r: 8 }}
-						dot={false}
-					/>
-					<Line
-						type="monotone"
-						dot={false}
-						dataKey="Deaths"
-						stroke="#82ca9d"
-					/>
-				</LineChart>
-			</ResponsiveContainer>
-		</Grid>
+		<>
+			<Grid item xs={12} className={classes.optionContainer}>
+				<GraphOption
+					graphOption={graphOption}
+					graphOptionChange={graphOptionChange}
+				/>
+			</Grid>
+
+			<Grid item xs={12} className={classes.graphContainer}>
+				<ResponsiveContainer width="80%" height={400}>
+					<LineChart
+						width={500}
+						height={300}
+						data={graphData}
+						margin={{
+							top: 10,
+							right: 20,
+							left: 20,
+							bottom: 45,
+						}}
+					>
+						<CartesianGrid strokeDasharray="3 3" />
+						<XAxis
+							dataKey="Date"
+							tickCount={5}
+							interval={"preserveStartEnd"}
+							tick={<CustomisedAxisTick />}
+						/>
+						<YAxis />
+						<Tooltip />
+						{/* <Legend verticalAlign="top" /> */}
+						<Line
+							type="monotone"
+							dataKey={graphOption}
+							stroke="#8884d8"
+							activeDot={{ r: 8 }}
+							dot={false}
+						/>
+					</LineChart>
+				</ResponsiveContainer>
+			</Grid>
+		</>
 	) : (
 		<></>
 	);

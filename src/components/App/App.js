@@ -77,7 +77,7 @@ function App() {
 
 	const regionSearch = async () => {
 		console.log("searching for a region");
-		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=region;areaName=${searchTerm}&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByPublishDate","cumDeaths":"cumDeaths28DaysByPublishDate"}`;
+		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=region;areaName=${searchTerm}&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByDeathDate","cumDeaths":"cumDeaths28DaysByDeathDate"}`;
 		const requestOptions = {
 			method: "GET",
 			redirect: "follow",
@@ -101,7 +101,7 @@ function App() {
 
 		const authorityToSearch = authority ? authority : searchTerm;
 		console.log(authorityToSearch);
-		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=ltla;areaName=${authorityToSearch}&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByPublishDate","cumDeaths":"cumDeaths28DaysByPublishDate"}`;
+		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=ltla;areaName=${authorityToSearch}&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByDeathDate","cumDeaths":"cumDeaths28DaysByDeathDate"}`;
 		const requestOptions = {
 			method: "GET",
 			redirect: "follow",
