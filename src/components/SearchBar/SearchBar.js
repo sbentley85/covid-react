@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import FormControl from "@material-ui/core/FormControl";
 
 // Component imports
 import SearchButton from "./SearchButton";
@@ -10,8 +11,8 @@ import SearchInput from "./SearchInput";
 
 const useStyles = makeStyles((theme) => ({
 	searchRow: {
-		display: "flex",
-		justifyContent: "center",
+		justifyContent: "space-around",
+		margin: theme.spacing(2),
 	},
 }));
 
@@ -20,20 +21,26 @@ const SearchBar = (props) => {
 
 	return (
 		<>
-			<Grid item xs={12} className={classes.searchRow}>
-				<SearchOption
-					searchOption={props.searchOption}
-					searchOptionChange={props.searchOptionChange}
-				/>
-				<SearchInput
-					searchTerm={props.searchTerm}
-					handleChange={props.termChange}
-					postcodeChange={props.postcodeChange}
-					optionList={props.optionList}
-				/>
+			<Grid item container className={classes.searchRow}>
+				<Grid item xs={10} sm={5} md={3}>
+					<SearchOption
+						searchOption={props.searchOption}
+						searchOptionChange={props.searchOptionChange}
+					/>
+				</Grid>
+				<Grid item xs={10} sm={5} md={3}>
+					<SearchInput
+						searchTerm={props.searchTerm}
+						handleChange={props.termChange}
+						postcodeChange={props.postcodeChange}
+						optionList={props.optionList}
+					/>
+				</Grid>
 			</Grid>
-			<Grid item xs={12} className={classes.searchRow}>
-				<SearchButton handleSearch={props.handleSearch} />
+			<Grid item container className={classes.searchRow}>
+				<Grid item>
+					<SearchButton handleSearch={props.handleSearch} />
+				</Grid>
 			</Grid>
 		</>
 	);

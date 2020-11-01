@@ -6,7 +6,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 const useStyles = makeStyles((theme) => ({
 	textField: {
 		margin: theme.spacing(1),
-		minWidth: 200,
+		width: "90%",
 	},
 }));
 
@@ -20,22 +20,20 @@ const SearchInput = (props) => {
 			id="search"
 		/>
 	) : (
-		<>
-			<Autocomplete
-				id="search"
-				options={props.optionList}
-				getOptionLabel={(option) => option}
-				onChange={props.handleChange}
-				value={props.searchTerm}
-				renderInput={(params) => (
-					<TextField
-						{...params}
-						label="Location"
-						className={classes.textField}
-					/>
-				)}
-			/>
-		</>
+		<Autocomplete
+			id="search"
+			options={props.optionList}
+			getOptionLabel={(option) => option}
+			onChange={props.handleChange}
+			value={props.searchTerm}
+			renderInput={(params) => (
+				<TextField
+					{...params}
+					label="Location"
+					className={classes.textField}
+				/>
+			)}
+		/>
 	);
 };
 

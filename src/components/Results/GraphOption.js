@@ -20,6 +20,20 @@ const useStyles = makeStyles((theme) => ({
 
 const GraphOption = (props) => {
 	const classes = useStyles();
+
+	const renderOptions = () => {
+		if (
+			props.searchOption === "authority" ||
+			props.searchOption === "postcode"
+		) {
+			return <MenuItem value={"Confirmed"}>Confirmed</MenuItem>;
+		}
+		return [
+			<MenuItem value={"Confirmed"}>Confirmed</MenuItem>,
+			<MenuItem value={"Deaths"}>Deaths</MenuItem>,
+		];
+	};
+
 	return (
 		<FormControl className={classes.formControl}>
 			<InputLabel className={classes.searchLabel} id="option-input-label">
@@ -32,8 +46,7 @@ const GraphOption = (props) => {
 				onChange={props.graphOptionChange}
 				className={classes.graphOption}
 			>
-				<MenuItem value={"Confirmed"}>Confirmed</MenuItem>
-				<MenuItem value={"Deaths"}>Deaths</MenuItem>
+				{renderOptions()}
 			</Select>
 		</FormControl>
 	);

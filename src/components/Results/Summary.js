@@ -55,7 +55,7 @@ const Summary = (props) => {
 		}
 	});
 	return worldData ? (
-		<Grid item xs={8} m={6} className={classes.cardRow}>
+		<Grid item container xs={8} m={6} className={classes.cardRow}>
 			{props.searchOption === "country" ? (
 				<SummaryCard data={worldData.Global} searchTerm={"Worldwide"} />
 			) : (

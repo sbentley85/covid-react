@@ -37,7 +37,7 @@ const CustomisedAxisTick = (props) => {
 				dy={16}
 				textAnchor="end"
 				fill="#666"
-				transform="rotate(-35)"
+				transform="rotate(-65)"
 			>
 				{payload.value}
 			</text>
@@ -70,20 +70,19 @@ const Graph = (props) => {
 				<GraphOption
 					graphOption={graphOption}
 					graphOptionChange={graphOptionChange}
+					searchOption={props.searchOption}
 				/>
 			</Grid>
 
 			<Grid item xs={12} className={classes.graphContainer}>
-				<ResponsiveContainer width="80%" height={400}>
+				<ResponsiveContainer width="90%" height={400}>
 					<LineChart
-						width={500}
-						height={300}
 						data={graphData}
 						margin={{
 							top: 10,
 							right: 20,
-							left: 20,
-							bottom: 45,
+							left: 0,
+							bottom: 65,
 						}}
 					>
 						<CartesianGrid strokeDasharray="3 3" />

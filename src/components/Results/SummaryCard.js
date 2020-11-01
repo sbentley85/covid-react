@@ -9,10 +9,13 @@ const useStyles = makeStyles({
 	root: {
 		minWidth: 275,
 		margin: "1rem",
+		backgroundColor: "#546e7a",
+		color: "white",
 	},
 
 	title: {
-		fontSize: 16,
+		fontSize: 18,
+		color: "white",
 	},
 	cardRow: {
 		display: "flex",
@@ -39,36 +42,36 @@ const SummaryCard = (props) => {
 					{props.searchTerm} data
 				</Typography>
 				<div className={classes.detailsRow}>
-					<Typography variant="body2" component="span">
+					<Typography variant="body1" component="span">
 						Total Confirmed Cases:
 					</Typography>
-					<Typography variant="body2" component="span">
+					<Typography variant="body1" component="span">
 						{addCommas(
 							props.data.TotalConfirmed || props.data.Confirmed
 						)}
 					</Typography>
 				</div>
 				<div className={classes.detailsRow}>
-					<Typography variant="body2" component="span">
+					<Typography variant="body1" component="span">
 						New Confirmed Cases:
 					</Typography>
-					<Typography variant="body2" component="span">
+					<Typography variant="body1" component="span">
 						{addCommas(props.data.NewConfirmed)}
 					</Typography>
 				</div>
 				<div className={classes.detailsRow}>
-					<Typography variant="body2" component="span">
+					<Typography variant="body1" component="span">
 						Total Deaths:
 					</Typography>
-					<Typography variant="body2" component="span">
+					<Typography variant="body1" component="span">
 						{addCommas(props.data.TotalDeaths || props.data.Deaths)}
 					</Typography>
 				</div>
 				<div className={classes.detailsRow}>
-					<Typography variant="body2" component="span">
+					<Typography variant="body1" component="span">
 						New Deaths:
 					</Typography>
-					<Typography variant="body2" component="span">
+					<Typography variant="body1" component="span">
 						{addCommas(props.data.NewDeaths)}
 					</Typography>
 				</div>

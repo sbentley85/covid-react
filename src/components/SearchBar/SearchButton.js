@@ -11,16 +11,14 @@ const useStyles = makeStyles((theme) => ({
 const SearchButton = (props) => {
 	const classes = useStyles();
 	return (
-		<div>
-			<Button
-				className={classes.searchButton}
-				variant="contained"
-				color="primary"
-				onClick={props.handleSearch}
-			>
-				Search
-			</Button>
-		</div>
+		<Button
+			className={classes.searchButton}
+			variant="contained"
+			color="primary"
+			onClick={props.handleSearch}
+		>
+			Search
+		</Button>
 	);
 };
 

@@ -8,20 +8,17 @@ import FormControl from "@material-ui/core/FormControl";
 const useStyles = makeStyles((theme) => ({
 	searchOption: {
 		margin: theme.spacing(1),
+		width: "90%",
 	},
 	searchLabel: {
 		marginLeft: theme.spacing(1),
-	},
-	formControl: {
-		margin: theme.spacing(1),
-		minWidth: 200,
 	},
 }));
 
 const SearchOption = (props) => {
 	const classes = useStyles();
 	return (
-		<FormControl className={classes.formControl}>
+		<>
 			<InputLabel className={classes.searchLabel} id="option-input-label">
 				Search for
 			</InputLabel>
@@ -37,7 +34,7 @@ const SearchOption = (props) => {
 				<MenuItem value={"authority"}>Local authority area</MenuItem>
 				<MenuItem value={"postcode"}>Postcode (UK Only)</MenuItem>
 			</Select>
-		</FormControl>
+		</>
 	);
 };
 

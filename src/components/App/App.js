@@ -8,6 +8,7 @@ import { formatRegionData } from "../../utils/utils";
 import SearchBar from "../SearchBar/SearchBar";
 import Summary from "../Results/Summary";
 import Graph from "../Results/Graph";
+import Attribution from "../attribution";
 
 // import search option arrays from utils
 import { authorities } from "../../utils/authorities";
@@ -165,12 +166,14 @@ function App() {
 					optionList={optionList}
 					handleSearch={handleSearch}
 				/>
+
 				<Summary
 					searchOption={searchOption}
 					searchTerm={searchTerm}
 					regionData={data ? data[data.length - 1] : null}
 				/>
-				<Graph data={data} />
+				<Graph data={data} searchOption={searchOption} />
+				<Attribution />
 			</Grid>
 		</div>
 	);
