@@ -10,7 +10,6 @@ import {
 	YAxis,
 	CartesianGrid,
 	Tooltip,
-	Legend,
 	ResponsiveContainer,
 } from "recharts";
 
@@ -27,7 +26,7 @@ const useStyles = makeStyles({
 });
 
 const CustomisedAxisTick = (props) => {
-	const { x, y, stroke, payload } = props;
+	const { x, y, payload } = props;
 
 	return (
 		<g transform={`translate(${x},${y})`}>
@@ -94,7 +93,7 @@ const Graph = (props) => {
 						/>
 						<YAxis />
 						<Tooltip />
-						{/* <Legend verticalAlign="top" /> */}
+
 						<Line
 							type="monotone"
 							dataKey={graphOption}

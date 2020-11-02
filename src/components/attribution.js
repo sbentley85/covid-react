@@ -9,7 +9,10 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		marginTop: "5rem",
+		marginTop: "4rem",
+	},
+	line: {
+		textAlign: "center",
 	},
 }));
 
@@ -18,16 +21,26 @@ const Attribution = () => {
 
 	return (
 		<Grid item xs={10} sm={8} className={classes.attribution}>
-			<Typography variant="caption" component="p">
+			<Typography
+				variant="caption"
+				component="p"
+				className={classes.line}
+			>
 				International data sourced from{" "}
 				<a href="https://github.com/CSSEGISandData/COVID-19">
 					Johns Hopkins CSSE
 				</a>{" "}
 				via <a href="https://covid19api.com/">Covid 19 API</a>
 			</Typography>
-			<Typography variant="caption" component="p">
+			<Typography
+				variant="caption"
+				component="p"
+				className={classes.line}
+			>
 				UK regional data sourced from{" "}
-				<a href="https://coronavirus.data.gov.uk/">coronavirus.go.uk</a>
+				<a href="https://coronavirus.data.gov.uk/">
+					coronavirus.gov.uk
+				</a>
 			</Typography>
 		</Grid>
 	);

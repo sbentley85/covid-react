@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { addCommas } from "../../utils/utils";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -31,7 +31,9 @@ const useStyles = makeStyles({
 const SummaryCard = (props) => {
 	const classes = useStyles();
 
-	return props.searchTerm != "" && props.searchTerm != null && props.data ? (
+	return props.searchTerm !== "" &&
+		props.searchTerm !== null &&
+		props.data ? (
 		<Card className={classes.root}>
 			<CardContent>
 				<Typography

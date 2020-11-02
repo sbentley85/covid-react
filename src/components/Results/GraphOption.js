@@ -29,8 +29,12 @@ const GraphOption = (props) => {
 			return <MenuItem value={"Confirmed"}>Confirmed</MenuItem>;
 		}
 		return [
-			<MenuItem value={"Confirmed"}>Confirmed</MenuItem>,
-			<MenuItem value={"Deaths"}>Deaths</MenuItem>,
+			<MenuItem value={"Confirmed"} key="confirmed">
+				Confirmed
+			</MenuItem>,
+			<MenuItem value={"Deaths"} key="deaths">
+				Deaths
+			</MenuItem>,
 		];
 	};
 
