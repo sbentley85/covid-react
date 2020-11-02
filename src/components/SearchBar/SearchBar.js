@@ -11,7 +11,7 @@ import SearchInput from "./SearchInput";
 
 const useStyles = makeStyles((theme) => ({
 	searchRow: {
-		justifyContent: "space-around",
+		justifyContent: "center",
 		margin: theme.spacing(2),
 	},
 }));
