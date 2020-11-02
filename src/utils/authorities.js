@@ -1,4 +1,5 @@
 export const authorities = [
+	"",
 	"Aberdeen City",
 	"Aberdeenshire",
 	"Adur",
@@ -382,5 +383,4 @@ export const authorities = [
 	"Wyre",
 	"Wyre Forest",
 	"York",
-	"",
 ];

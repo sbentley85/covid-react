@@ -98,7 +98,7 @@ function App() {
 	};
 
 	const authoritySearch = async (authority) => {
-		console.log("searching for a region");
+		console.log("searching for an authority");
 
 		const authorityToSearch = authority ? authority : searchTerm;
 		console.log(authorityToSearch);
@@ -120,7 +120,8 @@ function App() {
 	};
 
 	const postcodeLookup = async () => {
-		const url = `https://api.coronavirus.data.gov.uk/code?category=postcode&search=${searchTerm}`;
+		const url = `https://api.coronavirus.data.gov.uk/v1/code?category=postcode&search=${searchTerm}`;
+
 		const requestOptions = {
 			method: "GET",
 			redirect: "follow",
@@ -172,7 +173,9 @@ function App() {
 					searchTerm={searchTerm}
 					regionData={data ? data[data.length - 1] : null}
 				/>
-				<Graph data={data} searchOption={searchOption} />
+				{data ? (
+					<Graph data={data} searchOption={searchOption} />
+				) : null}
 				<Attribution />
 			</Grid>
 		</div>

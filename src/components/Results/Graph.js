@@ -68,7 +68,7 @@ const Graph = (props) => {
 		<>
 			<Grid item xs={12} className={classes.optionContainer}>
 				<GraphOption
-					graphOption={graphOption}
+					graphOption={!props.data ? "Confirmed" : graphOption}
 					graphOptionChange={graphOptionChange}
 					searchOption={props.searchOption}
 				/>

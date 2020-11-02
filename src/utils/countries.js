@@ -1,5 +1,5 @@
 export const countries = [
-	"ALA Aland Islands",
+	"",
 	"Afghanistan",
 	"Albania",
 	"Algeria",
@@ -247,5 +247,4 @@ export const countries = [
 	"Yemen",
 	"Zambia",
 	"Zimbabwe",
-	"",
 ];
