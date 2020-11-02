@@ -101,6 +101,7 @@ const Graph = (props) => {
 							stroke="#8884d8"
 							activeDot={{ r: 8 }}
 							dot={false}
+							strokeWidth={2}
 						/>
 					</LineChart>
 				</ResponsiveContainer>
