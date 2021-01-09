@@ -30,7 +30,9 @@ const SearchOption = (props) => {
 			>
 				<MenuItem value={"country"}>Country</MenuItem>
 				<MenuItem value={"region"}>Region (UK only)</MenuItem>
-				<MenuItem value={"authority"}>Local authority area</MenuItem>
+				<MenuItem value={"authority"}>
+					Local authority area (UK only)
+				</MenuItem>
 				<MenuItem value={"postcode"}>Postcode (UK Only)</MenuItem>
 			</Select>
 		</>

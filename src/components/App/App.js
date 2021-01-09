@@ -51,7 +51,6 @@ function App() {
 	};
 
 	const handleSearch = async () => {
-		console.log(searchTerm, searchOption);
 		if (searchOption === "country") countrySearch();
 		if (searchOption === "region") regionSearch();
 		if (searchOption === "authority") authoritySearch();
@@ -59,7 +58,6 @@ function App() {
 	};
 
 	const countrySearch = async () => {
-		console.log("searching for a country");
 		const url = `https://api.covid19api.com/total/dayone/country/${searchTerm}`;
 		const requestOptions = {
 			method: "GET",
@@ -77,7 +75,6 @@ function App() {
 	};
 
 	const regionSearch = async () => {
-		console.log("searching for a region");
 		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=region;areaName=${searchTerm}&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByDeathDate","cumDeaths":"cumDeaths28DaysByDeathDate"}`;
 		const requestOptions = {
 			method: "GET",
@@ -98,10 +95,7 @@ function App() {
 	};
 
 	const authoritySearch = async (authority) => {
-		console.log("searching for an authority");
-
 		const authorityToSearch = authority ? authority : searchTerm;
-		console.log(authorityToSearch);
 		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=ltla;areaName=${authorityToSearch}&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByDeathDate","cumDeaths":"cumDeaths28DaysByDeathDate"}`;
 		const requestOptions = {
 			method: "GET",
@@ -130,8 +124,6 @@ function App() {
 			const response = await fetch(url, requestOptions);
 			if (response.ok) {
 				const jsonResponse = await response.json();
-
-				console.log(jsonResponse);
 				return await jsonResponse.ltlaName;
 			}
 		} catch (error) {
@@ -140,20 +132,10 @@ function App() {
 	};
 
 	const postcodeSearch = async () => {
-		console.log("searching for a postcode");
 		const authority = await postcodeLookup();
-		console.log("authority passed by postcode");
-		console.log(authority);
 		setSearchTerm(authority);
 		authoritySearch(authority);
 	};
-
-	// useEffect(() => {
-	// 	console.log("apps use effect");
-	// 	if (searchOption === "postcode" && !data && searchTerm != "") {
-	// 		authoritySearch();
-	// 	}
-	// });
 
 	return (
 		<div className="App">
