@@ -88,7 +88,7 @@ export const addCommas = (number) => {
 	let x2 = x.length > 1 ? "." + x[1] : "";
 	var rgx = /(\d+)(\d{3})/;
 	while (rgx.test(x1)) {
-		x1 = x1.replace(rgx, "$1" + "," + "$2");
+		x1 = x1.replace(rgx, "$1,$2");
 	}
 	return x1 + x2;
 };
@@ -113,7 +113,26 @@ export const formatRegionData = (data) => {
 		};
 	});
 
-	console.log(formattedData);
 	const reversedData = formattedData.reverse();
 	return reversedData;
+};
+
+export const formatCountryData = (data) => {
+	const formattedData = data.map((item, index) => {
+		return {
+			Deaths: item.Deaths,
+			Confirmed: item.Confirmed,
+			Date: item.Date,
+			Active: item.Active,
+			NewConfirmed:
+				index === 0
+					? item.Confirmed
+					: item.Confirmed - data[index - 1].Confirmed,
+			NewDeaths:
+				index === 0
+					? item.Deaths
+					: item.Deaths - data[index - 1].Deaths,
+		};
+	});
+	return formattedData;
 };

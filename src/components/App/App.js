@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { formatRegionData } from "../../utils/utils";
+import { formatRegionData, formatCountryData } from "../../utils/utils";
 
 // Component imports
 import SearchBar from "../SearchBar/SearchBar";
@@ -67,7 +67,8 @@ function App() {
 			const response = await fetch(url, requestOptions);
 			if (response.ok) {
 				const jsonResponse = await response.json();
-				setData(jsonResponse);
+				const formattedData = formatCountryData(jsonResponse);
+				setData(formattedData);
 			}
 		} catch (error) {
 			console.log(error);

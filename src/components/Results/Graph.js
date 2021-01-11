@@ -55,6 +55,8 @@ const Graph = (props) => {
 					Confirmed: date.Confirmed,
 					Deaths: date.Deaths,
 					Date: date.Date.split("T")[0],
+					NewDeaths: date.NewDeaths,
+					NewConfirmed: date.NewConfirmed,
 				};
 		  })
 		: null;

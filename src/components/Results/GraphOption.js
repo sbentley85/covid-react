@@ -22,18 +22,18 @@ const GraphOption = (props) => {
 	const classes = useStyles();
 
 	const renderOptions = () => {
-		if (
-			props.searchOption === "authority" ||
-			props.searchOption === "postcode"
-		) {
-			return <MenuItem value={"Confirmed"}>Confirmed</MenuItem>;
-		}
 		return [
 			<MenuItem value={"Confirmed"} key="confirmed">
 				Confirmed
 			</MenuItem>,
 			<MenuItem value={"Deaths"} key="deaths">
 				Deaths
+			</MenuItem>,
+			<MenuItem value={"NewConfirmed"} key="new-confirmed">
+				New Confirmed
+			</MenuItem>,
+			<MenuItem value={"NewDeaths"} key="new-deaths">
+				New Deaths
 			</MenuItem>,
 		];
 	};
