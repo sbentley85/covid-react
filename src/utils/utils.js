@@ -102,7 +102,7 @@ export const formatRegionSummaryData = (data) => {
 	};
 };
 
-export const formatRegionData = (data) => {
+export const formatUKData = (data) => {
 	const formattedData = data.slice(1).map((item) => {
 		return {
 			Date: item.date,

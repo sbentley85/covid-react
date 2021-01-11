@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { formatRegionData, formatCountryData } from "../../utils/utils";
+import { formatUKData, formatCountryData } from "../../utils/utils";
 
 // Component imports
 import SearchBar from "../SearchBar/SearchBar";
@@ -51,10 +51,33 @@ function App() {
 	};
 
 	const handleSearch = async () => {
-		if (searchOption === "country") countrySearch();
+		if (searchOption === "country") {
+			if (searchTerm === "United Kingdom") {
+				ukSearch();
+			} else {
+				countrySearch();
+			}
+		}
 		if (searchOption === "region") regionSearch();
 		if (searchOption === "authority") authoritySearch();
 		if (searchOption === "postcode") postcodeSearch();
+	};
+
+	const ukSearch = async () => {
+		// Added as data from covid19api.com for UK seems to be incorrect
+		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=overview&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByDeathDate","cumDeaths":"cumDeaths28DaysByDeathDate"}`;
+		const requestOptions = {
+			method: "GET",
+			redirect: "follow",
+		};
+		try {
+			const response = await fetch(url, requestOptions);
+			const jsonResponse = await response.json();
+			const formattedData = formatUKData(jsonResponse.data);
+			setData(formattedData);
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	const countrySearch = async () => {
@@ -67,6 +90,7 @@ function App() {
 			const response = await fetch(url, requestOptions);
 			if (response.ok) {
 				const jsonResponse = await response.json();
+				console.log(jsonResponse);
 				const formattedData = formatCountryData(jsonResponse);
 				setData(formattedData);
 			}
@@ -85,9 +109,7 @@ function App() {
 			const response = await fetch(url, requestOptions);
 			if (response.ok) {
 				const jsonResponse = await response.json();
-
-				const formattedData = formatRegionData(jsonResponse.data);
-
+				const formattedData = formatUKData(jsonResponse.data);
 				setData(formattedData);
 			}
 		} catch (error) {
@@ -106,7 +128,7 @@ function App() {
 			const response = await fetch(url, requestOptions);
 			if (response.ok) {
 				const jsonResponse = await response.json();
-				const formattedData = formatRegionData(jsonResponse.data);
+				const formattedData = formatUKData(jsonResponse.data);
 				setData(formattedData);
 			}
 		} catch (error) {
