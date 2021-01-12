@@ -24,16 +24,16 @@ const GraphOption = (props) => {
 	const renderOptions = () => {
 		return [
 			<MenuItem value={"Confirmed"} key="confirmed">
-				Confirmed
+				Cumulative confirmed cases
 			</MenuItem>,
 			<MenuItem value={"Deaths"} key="deaths">
-				Deaths
+				Cumulative deaths
 			</MenuItem>,
 			<MenuItem value={"NewConfirmed"} key="new-confirmed">
-				New Confirmed
+				Daily confirmed cases
 			</MenuItem>,
 			<MenuItem value={"NewDeaths"} key="new-deaths">
-				New Deaths
+				Daily deaths
 			</MenuItem>,
 		];
 	};

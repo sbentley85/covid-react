@@ -54,6 +54,7 @@ const Summary = (props) => {
 			}
 		}
 	}, [worldData]);
+	
 	return worldData ? (
 		<Grid item container xs={8} m={6} className={classes.cardRow}>
 			{props.searchOption === "country" ? (

@@ -46,7 +46,7 @@ const CustomisedAxisTick = (props) => {
 
 const Graph = (props) => {
 	const classes = useStyles();
-	const [graphOption, setGraphOption] = useState("Confirmed");
+	const [graphOption, setGraphOption] = useState("NewConfirmed");
 
 	const graphData = props.data
 		? props.data.map((date) => {
