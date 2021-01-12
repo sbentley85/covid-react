@@ -28,8 +28,6 @@ export const formatUKData = (data) => {
 };
 
 export const formatCountryData = (data) => {
-	console.log(data);
-
 	const formattedData = data.timeline
 		.map((item, index) => {
 			return {
@@ -42,16 +40,38 @@ export const formatCountryData = (data) => {
 			};
 		})
 		.reverse();
-	console.log(formattedData);
 	return formattedData;
 };
 
 export const getCountryCode = async (country) => {
 	const response = await fetch("https://corona-api.com/countries");
 	const jsonResponse = await response.json();
-	console.log(jsonResponse);
 	const code = await jsonResponse.data.filter((item) => {
 		return item.name === country;
 	})[0].code;
 	return code;
+};
+
+export const formatCountrySummaries = (data) => {
+	const formattedData = data.map((country) => {
+		return {
+			Country: country.name,
+			NewConfirmed: country.today.confirmed,
+			TotalConfirmed: country.latest_data.confirmed,
+			NewDeaths: country.today.deaths,
+			TotalDeaths: country.latest_data.deaths,
+		};
+	});
+	return formattedData;
+};
+
+export const formatGlobalSummary = (data) => {
+	const formattedData = {
+		NewConfirmed: data[0].new_confirmed,
+		TotalConfirmed: data[0].confirmed,
+		NewDeaths: data[0].new_deaths,
+		TotalDeaths: data[0].deaths,
+	};
+
+	return formattedData;
 };

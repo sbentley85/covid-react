@@ -17,14 +17,14 @@ const SummaryCards = (props) => {
 			{/* Card 1 */}
 			{props.searchOption === "country" ? (
 				<SummaryCard
-					data={props.worldData.Global}
+					data={props.globalSummary}
 					searchTerm={"Worldwide"}
 				/>
 			) : (
 				<SummaryCard
 					data={
-						props.worldData.Countries.filter((item) => {
-							return item.Country === "United Kingdom";
+						props.countrySummaries.filter((item) => {
+							return item.Country === "UK";
 						})[0]
 					}
 					searchTerm={"United Kingdom"}
@@ -34,7 +34,7 @@ const SummaryCards = (props) => {
 			{props.searchOption === "country" ? (
 				<SummaryCard
 					data={
-						props.worldData.Countries.filter((item) => {
+						props.countrySummaries.filter((item) => {
 							return item.Country === props.searchTerm;
 						})[0]
 					}

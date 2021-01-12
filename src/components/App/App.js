@@ -67,22 +67,22 @@ function App() {
 		if (searchOption === "postcode") postcodeSearch();
 	};
 
-	const ukSearch = async () => {
-		// Added as data from covid19api.com for UK seems to be incorrect
-		const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=overview&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByDeathDate","cumDeaths":"cumDeaths28DaysByDeathDate"}`;
-		const requestOptions = {
-			method: "GET",
-			redirect: "follow",
-		};
-		try {
-			const response = await fetch(url, requestOptions);
-			const jsonResponse = await response.json();
-			const formattedData = formatUKData(jsonResponse.data);
-			setData(formattedData);
-		} catch (e) {
-			console.log(e);
-		}
-	};
+	// const ukSearch = async () => {
+	// 	// Added as data from covid19api.com for UK seems to be incorrect
+	// 	const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=overview&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByDeathDate","cumDeaths":"cumDeaths28DaysByDeathDate"}`;
+	// 	const requestOptions = {
+	// 		method: "GET",
+	// 		redirect: "follow",
+	// 	};
+	// 	try {
+	// 		const response = await fetch(url, requestOptions);
+	// 		const jsonResponse = await response.json();
+	// 		const formattedData = formatUKData(jsonResponse.data);
+	// 		setData(formattedData);
+	// 	} catch (e) {
+	// 		console.log(e);
+	// 	}
+	// };
 
 	const countrySearch = async () => {
 		const countryCode = await getCountryCode(searchTerm);

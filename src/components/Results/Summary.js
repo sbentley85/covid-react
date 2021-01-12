@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { formatCountrySummaries, formatGlobalSummary } from "../../utils/utils";
 
 // component imports
 
@@ -7,16 +7,42 @@ import SummaryCards from "./SumaryCards";
 
 const Summary = (props) => {
 	const [worldData, setWorldData] = useState(null);
+	const [countrySummaries, setCountrySummaries] = useState([]);
+	const [globalSummary, setGlobalSummary] = useState([]);
 
 	useEffect(() => {
-		if (!worldData) {
-			if (sessionStorage.getItem("worldData")) {
-				const data = JSON.parse(sessionStorage.getItem("worldData"));
+		// check if worldData already exists in session storeage
+		// if (!worldData) {
+		// 	if (sessionStorage.getItem("worldData")) {
+		// 		const data = JSON.parse(sessionStorage.getItem("worldData"));
 
-				setWorldData(data);
-			} else {
-				getData();
-			}
+		// 		setWorldData(data);
+		// 	} else {
+		// 		getCountrySummaries();
+		// 		getData();
+		// 	}
+		// }
+
+		getCountrySummaries();
+		getGlobalSummary();
+		getData();
+
+		async function getCountrySummaries() {
+			const url = "https://corona-api.com/countries";
+			const response = await fetch(url);
+			const jsonResponse = await response.json();
+			const formattedData = formatCountrySummaries(jsonResponse.data);
+			console.log(formattedData);
+			setCountrySummaries(formattedData);
+		}
+
+		async function getGlobalSummary() {
+			const url = "https://corona-api.com/timeline";
+			const response = await fetch(url);
+			const jsonResponse = await response.json();
+			const formattedData = formatGlobalSummary(jsonResponse.data);
+
+			setGlobalSummary(formattedData);
 		}
 
 		async function getData() {
@@ -30,7 +56,7 @@ const Summary = (props) => {
 				const response = await fetch(url, requestOptions);
 				if (response.ok) {
 					const jsonResponse = await response.json();
-					console.log(jsonResponse);
+
 					setWorldData(jsonResponse);
 					if (!sessionStorage.getItem("worldData")) {
 						sessionStorage.setItem(
@@ -45,11 +71,13 @@ const Summary = (props) => {
 				console.log(error);
 			}
 		}
-	}, [worldData]);
+	}, []);
 
 	return (
 		<SummaryCards
 			worldData={worldData}
+			globalSummary={globalSummary}
+			countrySummaries={countrySummaries}
 			regionData={props.regionData}
 			searchOption={props.searchOption}
 			searchTerm={props.searchTerm}
