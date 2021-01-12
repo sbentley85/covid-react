@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 
 const SummaryCards = (props) => {
 	const classes = useStyles();
-	return props.worldData ? (
+	return props.globalSummary ? (
 		<Grid item container xs={8} m={6} className={classes.cardRow}>
 			{/* Card 1 */}
 			{props.searchOption === "country" ? (

@@ -27,10 +27,7 @@ const Attribution = () => {
 				className={classes.line}
 			>
 				International data sourced from{" "}
-				<a href="https://github.com/CSSEGISandData/COVID-19">
-					Johns Hopkins CSSE
-				</a>{" "}
-				via <a href="https://covid19api.com/">Covid 19 API</a>
+				<a href="https://about-corona.net/">about-corona api</a>
 			</Typography>
 			<Typography
 				variant="caption"
