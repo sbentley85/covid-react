@@ -1,3 +1,23 @@
+// API calls
+
+export const postcodeLookup = async (searchTerm) => {
+	const url = `https://api.coronavirus.data.gov.uk/v1/code?category=postcode&search=${searchTerm}`;
+
+	const requestOptions = {
+		method: "GET",
+		redirect: "follow",
+	};
+	try {
+		const response = await fetch(url, requestOptions);
+		if (response.ok) {
+			const jsonResponse = await response.json();
+			return await jsonResponse.ltlaName;
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 // converts number to string with commas for display
 export const addCommas = (number) => {
 	let nStr = number.toString();
@@ -29,7 +49,7 @@ export const formatUKData = (data) => {
 
 export const formatCountryData = (data) => {
 	const formattedData = data.timeline
-		.map((item, index) => {
+		.map((item) => {
 			return {
 				Deaths: item.deaths,
 				Confirmed: item.confirmed,

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import {
+	postcodeLookup,
 	formatUKData,
 	formatCountryData,
 	getCountryCode,
@@ -55,34 +56,11 @@ function App() {
 	};
 
 	const handleSearch = async () => {
-		if (searchOption === "country") {
-			// if (searchTerm === "United Kingdom") {
-			// 	ukSearch();
-			// } else {
-			countrySearch();
-			// }
-		}
+		if (searchOption === "country") countrySearch();
 		if (searchOption === "region") regionSearch();
 		if (searchOption === "authority") authoritySearch();
 		if (searchOption === "postcode") postcodeSearch();
 	};
-
-	// const ukSearch = async () => {
-	// 	// Added as data from covid19api.com for UK seems to be incorrect
-	// 	const url = `https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=overview&structure={"date":"date","areaName":"areaName","dailyCases":"newCasesBySpecimenDate","cumCases":"cumCasesBySpecimenDate","newDeaths":"newDeaths28DaysByDeathDate","cumDeaths":"cumDeaths28DaysByDeathDate"}`;
-	// 	const requestOptions = {
-	// 		method: "GET",
-	// 		redirect: "follow",
-	// 	};
-	// 	try {
-	// 		const response = await fetch(url, requestOptions);
-	// 		const jsonResponse = await response.json();
-	// 		const formattedData = formatUKData(jsonResponse.data);
-	// 		setData(formattedData);
-	// 	} catch (e) {
-	// 		console.log(e);
-	// 	}
-	// };
 
 	const countrySearch = async () => {
 		const countryCode = await getCountryCode(searchTerm);
@@ -138,26 +116,8 @@ function App() {
 		}
 	};
 
-	const postcodeLookup = async () => {
-		const url = `https://api.coronavirus.data.gov.uk/v1/code?category=postcode&search=${searchTerm}`;
-
-		const requestOptions = {
-			method: "GET",
-			redirect: "follow",
-		};
-		try {
-			const response = await fetch(url, requestOptions);
-			if (response.ok) {
-				const jsonResponse = await response.json();
-				return await jsonResponse.ltlaName;
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const postcodeSearch = async () => {
-		const authority = await postcodeLookup();
+		const authority = await postcodeLookup(searchTerm);
 		setSearchTerm(authority);
 		authoritySearch(authority);
 	};
