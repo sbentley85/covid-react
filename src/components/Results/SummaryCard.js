@@ -41,7 +41,7 @@ const SummaryCard = (props) => {
 					color="textSecondary"
 					gutterBottom
 				>
-					{props.searchTerm} data
+					{props.searchTerm} summary
 				</Typography>
 				<div className={classes.detailsRow}>
 					<Typography variant="body1" component="span">

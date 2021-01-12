@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 
 // component imports
-import SummaryCard from "./SummaryCard";
 
-const useStyles = makeStyles({
-	cardRow: {
-		display: "flex",
-		justifyContent: "center",
-	},
-});
+import SummaryCards from "./SumaryCards";
 
 const Summary = (props) => {
 	const [worldData, setWorldData] = useState(null);
-	const classes = useStyles();
 
 	useEffect(() => {
 		if (!worldData) {
@@ -54,39 +46,14 @@ const Summary = (props) => {
 			}
 		}
 	}, [worldData]);
-	
-	return worldData ? (
-		<Grid item container xs={8} m={6} className={classes.cardRow}>
-			{props.searchOption === "country" ? (
-				<SummaryCard data={worldData.Global} searchTerm={"Worldwide"} />
-			) : (
-				<SummaryCard
-					data={
-						worldData.Countries.filter((item) => {
-							return item.Country === "United Kingdom";
-						})[0]
-					}
-					searchTerm={"United Kingdom"}
-				/>
-			)}
-			{props.searchOption === "country" ? (
-				<SummaryCard
-					data={
-						worldData.Countries.filter((item) => {
-							return item.Country === props.searchTerm;
-						})[0]
-					}
-					searchTerm={props.searchTerm}
-				/>
-			) : (
-				<SummaryCard
-					data={props.regionData}
-					searchTerm={props.searchTerm}
-				/>
-			)}
-		</Grid>
-	) : (
-		<></>
+
+	return (
+		<SummaryCards
+			worldData={worldData}
+			regionData={props.regionData}
+			searchOption={props.searchOption}
+			searchTerm={props.searchTerm}
+		/>
 	);
 };
 
