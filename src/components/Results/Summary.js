@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { formatCountrySummaries, formatGlobalSummary } from "../../utils/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { updateGlobalSummary, updateCountrySummaries } from "../../actions";
 
 // component imports
-
 import SummaryCards from "./SumaryCards";
 
 const Summary = (props) => {
-	const [countrySummaries, setCountrySummaries] = useState(null);
-	const [globalSummary, setGlobalSummary] = useState(null);
+	// redux store variables
+	const globalSummaryData = useSelector((state) => state.globalSummaryData);
+	const countrySummariesData = useSelector(
+		(state) => state.countrySummariesData
+	);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		getCountrySummaries();
@@ -18,7 +23,7 @@ const Summary = (props) => {
 			const response = await fetch(url);
 			const jsonResponse = await response.json();
 			const formattedData = formatCountrySummaries(jsonResponse.data);
-			setCountrySummaries(formattedData);
+			dispatch(updateCountrySummaries(formattedData));
 		}
 
 		async function getGlobalSummary() {
@@ -26,14 +31,14 @@ const Summary = (props) => {
 			const response = await fetch(url);
 			const jsonResponse = await response.json();
 			const formattedData = formatGlobalSummary(jsonResponse.data);
-			setGlobalSummary(formattedData);
+			dispatch(updateGlobalSummary(formattedData));
 		}
 	}, []);
 
 	return (
 		<SummaryCards
-			globalSummary={globalSummary}
-			countrySummaries={countrySummaries}
+			globalSummary={globalSummaryData}
+			countrySummaries={countrySummariesData}
 			regionData={props.regionData}
 			searchOption={props.searchOption}
 			searchTerm={props.searchTerm}
