@@ -36,7 +36,7 @@ const SummaryCards = (props) => {
 					data={
 						props.countrySummaries.filter((item) => {
 							return item.Country === props.searchTerm;
-						})[0]
+						})[0] || null
 					}
 					searchTerm={props.searchTerm}
 				/>
