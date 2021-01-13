@@ -18,3 +18,17 @@ export const updateTimelineData = (data) => {
 		payload: data,
 	};
 };
+
+export const updateGlobalSummary = (data) => {
+	return {
+		type: "GLOBAL-SUMMARY",
+		payload: data,
+	};
+};
+
+export const updateCountrySummaries = (data) => {
+	return {
+		type: "COUNTRY-SUMMARIES",
+		payload: data,
+	};
+};
