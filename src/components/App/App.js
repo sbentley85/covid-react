@@ -9,7 +9,7 @@ import {
 	getCountryCode,
 } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSearchTerm } from "../../actions";
+import { updateSearchTerm, updateSearchOption } from "../../actions";
 
 // Component imports
 import SearchBar from "../SearchBar/SearchBar";
@@ -32,11 +32,13 @@ const useStyles = makeStyles({
 function App() {
 	const classes = useStyles();
 	const dispatch = useDispatch();
+	// Reduc store variables
 	const searchTerm = useSelector((state) => state.searchTerm);
+	const searchOption = useSelector((state) => state.searchOption);
 
 	// state variables
-	const [searchOption, setSearchOption] = useState("country");
-	// const [searchTerm, setSearchTerm] = useState("");
+	// const [searchOption, setSearchOption] = useState("country");
+
 	const [optionList, setOptionList] = useState(countries);
 	const [data, setData] = useState(null);
 
@@ -53,7 +55,8 @@ function App() {
 		const option = event.target.value;
 		dispatch(updateSearchTerm(""));
 		setData(null);
-		setSearchOption(option);
+		dispatch(updateSearchOption(option));
+		// setSearchOption(option);
 
 		if (option === "country") setOptionList(countries);
 		if (option === "region") setOptionList(regions);

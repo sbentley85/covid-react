@@ -4,3 +4,10 @@ export const updateSearchTerm = (term) => {
 		payload: term,
 	};
 };
+
+export const updateSearchOption = (option) => {
+	return {
+		type: "SEARCH-OPTION",
+		payload: option,
+	};
+};
