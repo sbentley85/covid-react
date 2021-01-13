@@ -8,6 +8,8 @@ import {
 	formatCountryData,
 	getCountryCode,
 } from "../../utils/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSearchTerm } from "../../actions";
 
 // Component imports
 import SearchBar from "../SearchBar/SearchBar";
@@ -29,26 +31,30 @@ const useStyles = makeStyles({
 
 function App() {
 	const classes = useStyles();
+	const dispatch = useDispatch();
+	const searchTerm = useSelector((state) => state.searchTerm);
+
 	// state variables
 	const [searchOption, setSearchOption] = useState("country");
-	const [searchTerm, setSearchTerm] = useState("");
+	// const [searchTerm, setSearchTerm] = useState("");
 	const [optionList, setOptionList] = useState(countries);
 	const [data, setData] = useState(null);
 
 	const termChange = (event, value) => {
-		setSearchTerm(value);
+		dispatch(updateSearchTerm(value));
 		setData(null);
 	};
 
 	const postcodeChange = (event) => {
-		setSearchTerm(event.target.value);
+		dispatch(updateSearchTerm(event.target.value));
 	};
 
 	const searchOptionChange = (event) => {
 		const option = event.target.value;
-		setSearchTerm("");
+		dispatch(updateSearchTerm(""));
 		setData(null);
 		setSearchOption(option);
+
 		if (option === "country") setOptionList(countries);
 		if (option === "region") setOptionList(regions);
 		if (option === "authority") setOptionList(authorities);
@@ -118,7 +124,8 @@ function App() {
 
 	const postcodeSearch = async () => {
 		const authority = await postcodeLookup(searchTerm);
-		setSearchTerm(authority);
+
+		dispatch(updateSearchTerm(authority));
 		authoritySearch(authority);
 	};
 
