@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -9,22 +9,13 @@ import {
 	getCountryCode,
 } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	updateSearchTerm,
-	updateSearchOption,
-	updateTimelineData,
-} from "../../actions";
+import { updateSearchTerm, updateTimelineData } from "../../actions";
 
 // Component imports
 import SearchBar from "../SearchBar/SearchBar";
 import Summary from "../Results/Summary";
 import Graph from "../Results/Graph";
 import Attribution from "../attribution";
-
-// import search option arrays from utils
-import { authorities } from "../../utils/authorities";
-import { regions } from "../../utils/regions";
-import { countries } from "../../utils/countries";
 
 const useStyles = makeStyles({
 	appContainer: {
@@ -36,36 +27,10 @@ const useStyles = makeStyles({
 function App() {
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	// Reduc store variables
+	// Redux store variables
 	const searchTerm = useSelector((state) => state.searchTerm);
 	const searchOption = useSelector((state) => state.searchOption);
 	const timelineData = useSelector((state) => state.timelineData);
-
-	// state variables
-	const [optionList, setOptionList] = useState(countries);
-	// const [data, setData] = useState(null);
-
-	const termChange = (event, value) => {
-		dispatch(updateSearchTerm(value));
-		dispatch(updateTimelineData(null));
-		// setData(null);
-	};
-
-	const postcodeChange = (event) => {
-		dispatch(updateSearchTerm(event.target.value));
-	};
-
-	const searchOptionChange = (event) => {
-		const option = event.target.value;
-		dispatch(updateSearchTerm(""));
-		dispatch(updateTimelineData(null));
-		dispatch(updateSearchOption(option));
-
-		if (option === "country") setOptionList(countries);
-		if (option === "region") setOptionList(regions);
-		if (option === "authority") setOptionList(authorities);
-		if (option === "postcode") setOptionList([]);
-	};
 
 	const handleSearch = async () => {
 		if (searchOption === "country") countrySearch();
@@ -137,15 +102,7 @@ function App() {
 	return (
 		<div className="App">
 			<Grid container className={classes.appContainer}>
-				<SearchBar
-					searchOption={searchOption}
-					searchOptionChange={searchOptionChange}
-					searchTerm={searchTerm}
-					termChange={termChange}
-					postcodeChange={postcodeChange}
-					optionList={optionList}
-					handleSearch={handleSearch}
-				/>
+				<SearchBar handleSearch={handleSearch} />
 
 				<Summary
 					searchOption={searchOption}

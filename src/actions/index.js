@@ -32,3 +32,10 @@ export const updateCountrySummaries = (data) => {
 		payload: data,
 	};
 };
+
+export const updateOptionList = (data) => {
+	return {
+		type: "OPTION-LIST",
+		payload: data,
+	};
+};

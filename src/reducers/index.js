@@ -4,6 +4,7 @@ import searchOptionReducer from "./searchOption";
 import timelineReducer from "./timeline";
 import globalSummaryReducer from "./globalSummary";
 import countrySummariesReducer from "./countrySummaries";
+import optionListReducer from "./optionList";
 
 const allReducers = combineReducers({
 	searchTerm: searchTermReducer,
@@ -11,6 +12,7 @@ const allReducers = combineReducers({
 	timelineData: timelineReducer,
 	globalSummaryData: globalSummaryReducer,
 	countrySummariesData: countrySummariesReducer,
+	optionList: optionListReducer,
 });
 
 export default allReducers;

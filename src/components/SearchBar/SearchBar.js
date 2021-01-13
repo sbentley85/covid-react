@@ -28,18 +28,10 @@ const SearchBar = (props) => {
 		<>
 			<Grid item container className={classes.searchInputRow}>
 				<Grid item xs={10} sm={5} md={3}>
-					<SearchOption
-						searchOption={props.searchOption}
-						searchOptionChange={props.searchOptionChange}
-					/>
+					<SearchOption />
 				</Grid>
 				<Grid item xs={10} sm={5} md={3}>
-					<SearchInput
-						searchTerm={props.searchTerm}
-						handleChange={props.termChange}
-						postcodeChange={props.postcodeChange}
-						optionList={props.optionList}
-					/>
+					<SearchInput />
 				</Grid>
 			</Grid>
 			<Grid item container className={classes.searchButtonRow}>
