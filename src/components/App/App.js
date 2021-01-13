@@ -9,7 +9,11 @@ import {
 	getCountryCode,
 } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSearchTerm, updateSearchOption } from "../../actions";
+import {
+	updateSearchTerm,
+	updateSearchOption,
+	updateTimelineData,
+} from "../../actions";
 
 // Component imports
 import SearchBar from "../SearchBar/SearchBar";
@@ -35,16 +39,16 @@ function App() {
 	// Reduc store variables
 	const searchTerm = useSelector((state) => state.searchTerm);
 	const searchOption = useSelector((state) => state.searchOption);
+	const timelineData = useSelector((state) => state.timelineData);
 
 	// state variables
-	// const [searchOption, setSearchOption] = useState("country");
-
 	const [optionList, setOptionList] = useState(countries);
-	const [data, setData] = useState(null);
+	// const [data, setData] = useState(null);
 
 	const termChange = (event, value) => {
 		dispatch(updateSearchTerm(value));
-		setData(null);
+		dispatch(updateTimelineData(null));
+		// setData(null);
 	};
 
 	const postcodeChange = (event) => {
@@ -54,9 +58,8 @@ function App() {
 	const searchOptionChange = (event) => {
 		const option = event.target.value;
 		dispatch(updateSearchTerm(""));
-		setData(null);
+		dispatch(updateTimelineData(null));
 		dispatch(updateSearchOption(option));
-		// setSearchOption(option);
 
 		if (option === "country") setOptionList(countries);
 		if (option === "region") setOptionList(regions);
@@ -81,7 +84,7 @@ function App() {
 				const jsonResponse = await response.json();
 
 				const formattedData = formatCountryData(jsonResponse.data);
-				setData(formattedData);
+				dispatch(updateTimelineData(formattedData));
 			}
 		} catch (error) {
 			console.log(error);
@@ -99,7 +102,7 @@ function App() {
 			if (response.ok) {
 				const jsonResponse = await response.json();
 				const formattedData = formatUKData(jsonResponse.data);
-				setData(formattedData);
+				dispatch(updateTimelineData(formattedData));
 			}
 		} catch (error) {
 			console.log(error);
@@ -118,7 +121,7 @@ function App() {
 			if (response.ok) {
 				const jsonResponse = await response.json();
 				const formattedData = formatUKData(jsonResponse.data);
-				setData(formattedData);
+				dispatch(updateTimelineData(formattedData));
 			}
 		} catch (error) {
 			console.log(error);
@@ -127,7 +130,6 @@ function App() {
 
 	const postcodeSearch = async () => {
 		const authority = await postcodeLookup(searchTerm);
-
 		dispatch(updateSearchTerm(authority));
 		authoritySearch(authority);
 	};
@@ -148,10 +150,14 @@ function App() {
 				<Summary
 					searchOption={searchOption}
 					searchTerm={searchTerm}
-					regionData={data ? data[data.length - 1] : null}
+					regionData={
+						timelineData
+							? timelineData[timelineData.length - 1]
+							: null
+					}
 				/>
-				{data ? (
-					<Graph data={data} searchOption={searchOption} />
+				{timelineData ? (
+					<Graph data={timelineData} searchOption={searchOption} />
 				) : null}
 				<Attribution />
 			</Grid>

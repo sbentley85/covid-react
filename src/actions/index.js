@@ -11,3 +11,10 @@ export const updateSearchOption = (option) => {
 		payload: option,
 	};
 };
+
+export const updateTimelineData = (data) => {
+	return {
+		type: "TIMELINE",
+		payload: data,
+	};
+};
