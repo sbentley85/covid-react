@@ -16,6 +16,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import Summary from "../Results/Summary";
 import Graph from "../Results/Graph";
 import Attribution from "../attribution";
+import CountryTable from "../Results/CountryTable";
 
 const useStyles = makeStyles({
 	appContainer: {
@@ -106,6 +107,7 @@ function App() {
 
 				<Summary />
 				{timelineData ? <Graph /> : null}
+				{searchOption === "country" ? <CountryTable /> : <></>}
 				<Attribution />
 			</Grid>
 		</div>

@@ -83,6 +83,10 @@ export const formatCountrySummaries = (data) => {
 			TotalConfirmed: country.latest_data.confirmed,
 			NewDeaths: country.today.deaths,
 			TotalDeaths: country.latest_data.deaths,
+			Critical: country.latest_data.critical,
+			DeathRate: country.latest_data.calculated.death_rate,
+			CasesPerMillion:
+				country.latest_data.calculated.cases_per_million_population,
 		};
 	});
 	return formattedData;
