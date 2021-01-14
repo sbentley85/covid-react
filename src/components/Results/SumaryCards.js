@@ -8,6 +8,7 @@ const useStyles = makeStyles({
 	cardRow: {
 		display: "flex",
 		justifyContent: "center",
+		marginBottom: "2rem",
 	},
 });
 

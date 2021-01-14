@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 	searchButtonRow: {
 		justifyContent: "center",
 		margin: theme.spacing(2),
-		marginBottom: "3rem",
+		marginBottom: "2rem",
 	},
 }));
 
