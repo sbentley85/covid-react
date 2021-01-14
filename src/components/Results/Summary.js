@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { formatCountrySummaries, formatGlobalSummary } from "../../utils/utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateGlobalSummary, updateCountrySummaries } from "../../actions";
 
 // component imports
@@ -8,8 +8,6 @@ import SummaryCards from "./SumaryCards";
 
 const Summary = (props) => {
 	// redux store variables
-
-	const searchOption = useSelector((state) => state.searchOption);
 
 	const dispatch = useDispatch();
 
@@ -34,12 +32,7 @@ const Summary = (props) => {
 		}
 	}, []);
 
-	return (
-		<SummaryCards
-			regionData={props.regionData}
-			searchOption={searchOption}
-		/>
-	);
+	return <SummaryCards />;
 };
 
 export default Summary;

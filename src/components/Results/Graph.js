@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import GraphOption from "./GraphOption";
+import { useSelector } from "react-redux";
 
 import {
 	LineChart,
@@ -47,9 +48,11 @@ const CustomisedAxisTick = (props) => {
 const Graph = (props) => {
 	const classes = useStyles();
 	const [graphOption, setGraphOption] = useState("NewConfirmed");
+	const timelineData = useSelector((state) => state.timelineData);
+	const searchOption = useSelector((state) => state.searchOption);
 
-	const graphData = props.data
-		? props.data.map((date) => {
+	const graphData = timelineData
+		? timelineData.map((date) => {
 				return {
 					Active: date.Active,
 					Confirmed: date.Confirmed,
@@ -65,13 +68,13 @@ const Graph = (props) => {
 		setGraphOption(event.target.value);
 	};
 
-	return props.data ? (
+	return timelineData ? (
 		<>
 			<Grid item xs={12} className={classes.optionContainer}>
 				<GraphOption
-					graphOption={!props.data ? "Confirmed" : graphOption}
+					graphOption={!timelineData ? "Confirmed" : graphOption}
 					graphOptionChange={graphOptionChange}
-					searchOption={props.searchOption}
+					searchOption={searchOption}
 				/>
 			</Grid>
 

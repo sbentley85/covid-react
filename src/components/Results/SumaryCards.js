@@ -17,6 +17,7 @@ const SummaryCards = (props) => {
 	const searchTerm = useSelector((state) => state.searchTerm);
 	const searchOption = useSelector((state) => state.searchOption);
 	const globalSummaryData = useSelector((state) => state.globalSummaryData);
+	const timelineData = useSelector((state) => state.timelineData);
 	const countrySummariesData = useSelector(
 		(state) => state.countrySummariesData
 	);
@@ -50,7 +51,14 @@ const SummaryCards = (props) => {
 					searchTerm={searchTerm}
 				/>
 			) : (
-				<SummaryCard data={props.regionData} searchTerm={searchTerm} />
+				<SummaryCard
+					data={
+						timelineData
+							? timelineData[timelineData.length - 1]
+							: null
+					}
+					searchTerm={searchTerm}
+				/>
 			)}
 		</Grid>
 	) : (

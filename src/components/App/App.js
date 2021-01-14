@@ -104,18 +104,8 @@ function App() {
 			<Grid container className={classes.appContainer}>
 				<SearchBar handleSearch={handleSearch} />
 
-				<Summary
-					searchOption={searchOption}
-					searchTerm={searchTerm}
-					regionData={
-						timelineData
-							? timelineData[timelineData.length - 1]
-							: null
-					}
-				/>
-				{timelineData ? (
-					<Graph data={timelineData} searchOption={searchOption} />
-				) : null}
+				<Summary />
+				{timelineData ? <Graph /> : null}
 				<Attribution />
 			</Grid>
 		</div>
