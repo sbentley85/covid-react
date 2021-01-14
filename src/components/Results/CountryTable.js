@@ -5,10 +5,10 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-	tableContainer: {},
-	table: {
-		width: "1100px",
+	tableRow: {
 		height: "30rem",
+		width: "90%",
+		maxWidth: "1202px",
 	},
 }));
 
@@ -21,66 +21,72 @@ const CountryTable = () => {
 				return country;
 		  })
 		: null;
-	const columns = [
-		{ field: "id", headerName: "Id", width: 0 },
 
+	const columns = [
 		{ field: "Country", headerName: "Country", width: 130 },
 		{
 			field: "NewConfirmed",
 			headerName: "Daily confimed",
 			type: "number",
-			width: 130,
+			width: 150,
 		},
 		{
 			field: "TotalConfirmed",
 			headerName: "Total confirmed",
 			type: "number",
-			width: 130,
-		},
-		{
-			field: "NewDeaths",
-			headerName: "Daily Deaths",
-			type: "number",
-			width: 130,
-		},
-		{
-			field: "TotalDeaths",
-			headerName: "Total Deaths",
-			type: "number",
-			width: 130,
-		},
-		{
-			field: "Critical",
-			headerName: "Critical",
-			type: "number",
-			width: 130,
-		},
-		{
-			field: "DeathRate",
-			headerName: "Death rate",
-			type: "number",
-			width: 130,
+			width: 150,
 		},
 		{
 			field: "CasesPerMillion",
 			headerName: "Cases per million",
 			type: "number",
-			width: 130,
+			width: 150,
+		},
+		{
+			field: "NewDeaths",
+			headerName: "Daily Deaths",
+			type: "number",
+			width: 150,
+		},
+		{
+			field: "TotalDeaths",
+			headerName: "Total Deaths",
+			type: "number",
+			width: 150,
+		},
+		{
+			field: "Critical",
+			headerName: "Critical",
+			type: "number",
+			width: 150,
+		},
+		{
+			field: "DeathRate",
+			headerName: "Death rate",
+			type: "number",
+			width: 150,
 		},
 	];
 
 	return (
-		<div>
+		<>
 			{countryData ? (
-				<Grid container className={classes.tableContainer}>
-					<Grid item className={classes.table}>
-						<DataGrid rows={tableData} columns={columns} />
-					</Grid>
+				<Grid container item className={classes.tableRow}>
+					<DataGrid
+						rows={tableData}
+						columns={columns}
+						sortModel={[
+							{
+								field: "TotalConfirmed",
+								sort: "desc",
+							},
+						]}
+					/>
 				</Grid>
 			) : (
 				<></>
 			)}
-		</div>
+		</>
 	);
 };
 

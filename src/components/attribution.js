@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: "column",
 		alignItems: "center",
 		marginTop: "4rem",
+		marginBottom: "2rem",
 	},
 	line: {
 		textAlign: "center",
