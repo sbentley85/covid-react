@@ -2,6 +2,7 @@ import React from "react";
 import SummaryCard from "./SummaryCard";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
 	cardRow: {
@@ -12,18 +13,26 @@ const useStyles = makeStyles({
 
 const SummaryCards = (props) => {
 	const classes = useStyles();
-	return props.globalSummary ? (
+
+	const searchTerm = useSelector((state) => state.searchTerm);
+	const searchOption = useSelector((state) => state.searchOption);
+	const globalSummaryData = useSelector((state) => state.globalSummaryData);
+	const countrySummariesData = useSelector(
+		(state) => state.countrySummariesData
+	);
+
+	return globalSummaryData ? (
 		<Grid item container xs={8} m={6} className={classes.cardRow}>
 			{/* Card 1 */}
-			{props.searchOption === "country" ? (
+			{searchOption === "country" ? (
 				<SummaryCard
-					data={props.globalSummary}
+					data={globalSummaryData}
 					searchTerm={"Worldwide"}
 				/>
 			) : (
 				<SummaryCard
 					data={
-						props.countrySummaries.filter((item) => {
+						countrySummariesData.filter((item) => {
 							return item.Country === "UK";
 						})[0]
 					}
@@ -31,20 +40,17 @@ const SummaryCards = (props) => {
 				/>
 			)}
 			{/* Card 2 */}
-			{props.searchOption === "country" ? (
+			{searchOption === "country" ? (
 				<SummaryCard
 					data={
-						props.countrySummaries.filter((item) => {
-							return item.Country === props.searchTerm;
+						countrySummariesData.filter((item) => {
+							return item.Country === searchTerm;
 						})[0] || null
 					}
-					searchTerm={props.searchTerm}
+					searchTerm={searchTerm}
 				/>
 			) : (
-				<SummaryCard
-					data={props.regionData}
-					searchTerm={props.searchTerm}
-				/>
+				<SummaryCard data={props.regionData} searchTerm={searchTerm} />
 			)}
 		</Grid>
 	) : (

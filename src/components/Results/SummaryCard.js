@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
 	root: {
@@ -30,10 +31,9 @@ const useStyles = makeStyles({
 
 const SummaryCard = (props) => {
 	const classes = useStyles();
+	const searchTerm = useSelector((state) => state.searchTerm);
 
-	return props.searchTerm !== "" &&
-		props.searchTerm !== null &&
-		props.data ? (
+	return searchTerm !== "" && searchTerm !== null && props.data ? (
 		<Card className={classes.root}>
 			<CardContent>
 				<Typography

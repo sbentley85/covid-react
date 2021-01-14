@@ -8,10 +8,9 @@ import SummaryCards from "./SumaryCards";
 
 const Summary = (props) => {
 	// redux store variables
-	const globalSummaryData = useSelector((state) => state.globalSummaryData);
-	const countrySummariesData = useSelector(
-		(state) => state.countrySummariesData
-	);
+
+	const searchOption = useSelector((state) => state.searchOption);
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -37,11 +36,8 @@ const Summary = (props) => {
 
 	return (
 		<SummaryCards
-			globalSummary={globalSummaryData}
-			countrySummaries={countrySummariesData}
 			regionData={props.regionData}
-			searchOption={props.searchOption}
-			searchTerm={props.searchTerm}
+			searchOption={searchOption}
 		/>
 	);
 };
